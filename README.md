@@ -68,9 +68,7 @@ See `engine.Config` for all available options:
 
 ---
 
-## Advanced
+## TODO
 
-- **Custom Hashing:** Provide your own hash function for partitioning.
-- **Eviction Callbacks:** Register callbacks for cache eviction events.
-- **Debugging:** Use `Debug()` to inspect cache and engine state.
-- **Stats:** Get runtime stats via `utils.GetStats()`.
+- **internal/cache:** arc, 2q.
+- **internal/consistenthash**.

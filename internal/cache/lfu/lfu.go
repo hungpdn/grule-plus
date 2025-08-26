@@ -50,12 +50,15 @@ func New(maxEntries int, cleanupInterval time.Duration) *Cache {
 	return cache
 }
 
+// NewWithEvictionFunc creates an Cache with given maxEntries and eviction callback function,
+// and starts a background cleanup goroutine that runs every cleanupInterval.
 func NewWithEvictionFunc(maxEntries int, cleanupInterval time.Duration, f common.EvictedFunc) *Cache {
 	c := New(maxEntries, cleanupInterval)
 	c.onEvicted = f
 	return c
 }
 
+// SetEvictedFunc sets the eviction callback function.
 func (c *Cache) SetEvictedFunc(f common.EvictedFunc) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -67,6 +70,7 @@ func (c *Cache) SetEvictedFunc(f common.EvictedFunc) error {
 	return nil
 }
 
+// SetDefaultTTL sets the default TTL for items. A zero duration means no default TTL.
 func (c *Cache) SetDefaultTTL(ttl time.Duration) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -181,6 +185,9 @@ func (c *Cache) evict() {
 		delete(c.freqList, c.minFreq)
 		// next minFreq will reset on new insert
 	}
+	if c.onEvicted != nil {
+		c.onEvicted(oldest.key, oldest.value, common.EvictionEvent)
+	}
 }
 
 // removeEntry removes an entry from its frequency list (used on expiration).
@@ -200,6 +207,7 @@ func (c *Cache) removeEntry(entry *entry, event int) {
 	}
 }
 
+// Has checks if a key exists and is not expired, without updating its frequency.
 func (c *Cache) Has(key any) bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -218,18 +226,21 @@ func (c *Cache) Has(key any) bool {
 	return false
 }
 
-// TODO
+// Delete removes a key from the cache. Returns true if the key was present.
 func (c *Cache) Delete(key any) bool {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	if ele, hit := c.entries[key]; hit {
 		c.removeEntry(ele, common.DeleteEvent)
+		delete(c.entries, key)
 		return true
 	}
+
 	return false
 }
 
+// Len returns the number of items in the cache.
 func (c *Cache) Len() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -240,6 +251,7 @@ func (c *Cache) Len() int {
 	return len(c.entries)
 }
 
+// Clear removes all items from the cache.
 func (c *Cache) Clear() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -293,6 +305,7 @@ func (c *Cache) StopCleanup() {
 	}
 }
 
+// Keys returns a slice of all keys in the cache.
 func (c *Cache) Keys() []any {
 	c.mu.RLock()
 	defer c.mu.RUnlock()

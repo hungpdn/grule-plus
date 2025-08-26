@@ -7,6 +7,8 @@
 *.dll
 *.so
 *.dylib
+.DS_Store
+__debug*
 
 # Test binary, built with `go test -c`
 *.test
@@ -29,5 +31,3 @@ go.work.sum
 
 # Editor/IDE
 .vscode/
-
-.DS_Store

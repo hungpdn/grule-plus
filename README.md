@@ -72,3 +72,5 @@ See `engine.Config` for all available options:
 
 - **internal/cache:** arc, 2q.
 - **internal/consistenthash**.
+- **benchmark**.
+- **protobuf**.

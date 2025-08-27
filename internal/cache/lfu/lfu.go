@@ -71,12 +71,11 @@ func (c *Cache) SetEvictedFunc(f common.EvictedFunc) error {
 }
 
 // SetDefaultTTL sets the default TTL for items. A zero duration means no default TTL.
-func (c *Cache) SetDefaultTTL(ttl time.Duration) error {
+func (c *Cache) SetDefaultTTL(ttl time.Duration) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	c.defaultTTL = ttl
-	return nil
 }
 
 // Set inserts or updates a key with the given value and TTL (in seconds).

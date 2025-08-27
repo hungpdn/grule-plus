@@ -45,7 +45,7 @@ func NewSingleEngine(cfg Config) *singleEngine {
 		CleanupInterval: time.Duration(cfg.CleanupInterval) * time.Second,
 		DefaultTTL:      time.Duration(cfg.TTL) * time.Second,
 	})
-	localCache.SetEvictedFunc(func(key, value any, event int) {
+	_ = localCache.SetEvictedFunc(func(key, value any, event int) {
 		go func() {
 			switch event {
 			case common.ExpirationEvent, common.EvictionEvent:

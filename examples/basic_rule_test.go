@@ -27,7 +27,7 @@ func TestBasicRule(t *testing.T) {
 					Retract("DiscountRule");
 				}`
 
-	grule.AddRule(rule, statement, 60)
+	_ = grule.AddRule(rule, statement, 60)
 
 	fact := struct {
 		Amount   int

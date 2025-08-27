@@ -66,15 +66,6 @@ func New(config Config) ICache {
 			cache.SetDefaultTTL(config.DefaultTTL)
 		}
 		return cache
-	case LFU:
-		cache := lfu.New(config.Size, config.CleanupInterval)
-		if config.EvictedFunc != nil {
-			cache.SetEvictedFunc(config.EvictedFunc)
-		}
-		if config.DefaultTTL > 0 {
-			cache.SetDefaultTTL(config.DefaultTTL)
-		}
-		return cache
 	default:
 		panic("unknown type")
 	}

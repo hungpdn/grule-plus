@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/hungpdn/grule-plus/internal/cache/common"
+	"github.com/hungpdn/grule-plus/internal/cache/lfu"
 	"github.com/hungpdn/grule-plus/internal/cache/lru"
 )
 
@@ -49,6 +50,15 @@ func New(config Config) ICache {
 	switch config.Type {
 	case LRU:
 		cache := lru.New(config.Size, config.CleanupInterval)
+		if config.EvictedFunc != nil {
+			cache.SetEvictedFunc(config.EvictedFunc)
+		}
+		if config.DefaultTTL > 0 {
+			cache.SetDefaultTTL(config.DefaultTTL)
+		}
+		return cache
+	case LFU:
+		cache := lfu.New(config.Size, config.CleanupInterval)
 		if config.EvictedFunc != nil {
 			cache.SetEvictedFunc(config.EvictedFunc)
 		}

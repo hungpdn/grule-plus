@@ -42,7 +42,13 @@ func main() {
     grule := engine.NewPartitionEngine(cfg, nil)
 
     rule := "DiscountRule"
-    statement := `rule DiscountRule "Apply discount" salience 10 { when DiscountFact.Amount > 100 then DiscountFact.Discount = 10; }`
+    statement := `rule DiscountRule "Apply discount" salience 10 { 
+                when 
+                    DiscountFact.Amount > 100 
+                then 
+                    DiscountFact.Discount = 10; 
+                    Retract("DiscountRule");
+                }`
     grule.AddRule(rule, statement, 60)
 
     fact := struct {
@@ -72,3 +78,5 @@ See `engine.Config` for all available options:
 
 - **internal/cache:** arc, 2q.
 - **internal/consistenthash**.
+- **benchmark**.
+- **protobuf**.

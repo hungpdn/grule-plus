@@ -68,12 +68,11 @@ func (c *Cache) SetEvictedFunc(f common.EvictedFunc) error {
 }
 
 // SetDefaultTTL updates the defaultTTL
-func (c *Cache) SetDefaultTTL(ttl time.Duration) error {
+func (c *Cache) SetDefaultTTL(ttl time.Duration) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
 	c.defaultTTL = ttl
-	return nil
 }
 
 // Add adds or updates a value to the cache

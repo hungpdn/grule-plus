@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewSingleEngine(t *testing.T) {
-	cfg := Config{Type: 0, Size: 10, CleanupInterval: 1, TTL: 1}
+	cfg := Config{Type: LRU, Size: 10, CleanupInterval: 1, TTL: 1}
 	se := NewSingleEngine(cfg)
 	if se == nil {
 		t.Fatalf("NewSingleEngine returned nil")

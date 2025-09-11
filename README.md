@@ -33,11 +33,12 @@ import (
 
 func main() {
     cfg := engine.Config{
-        Type:            0, // LRU
+        Type:            engine.LRU,
         Size:            1000,
         CleanupInterval: 10,
         TTL:             60,
-        Partition:       4,
+        Partition:       1,
+        FactName:        "DiscountFact",
     }
     grule := engine.NewPartitionEngine(cfg, nil)
 
@@ -49,14 +50,16 @@ func main() {
                     DiscountFact.Discount = 10; 
                     Retract("DiscountRule");
                 }`
-    grule.AddRule(rule, statement, 60)
+    _ = grule.AddRule(rule, statement, 60)
 
     fact := struct {
         Amount   int
         Discount int
     }{Amount: 150}
 
-    grule.Execute(context.Background(), rule, &fact)
+    _ = grule.Execute(context.Background(), rule, &fact)
+    
+    fmt.Printf("fact.Discount = 10: %v", fact.Discount)
 }
 ```
 

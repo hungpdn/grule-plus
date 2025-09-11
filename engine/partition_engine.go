@@ -40,6 +40,7 @@ func NewPartitionEngine(cfg Config, hashFunc HashFunc) *partitionEngine {
 			Size:            sizeE,
 			CleanupInterval: cfg.CleanupInterval,
 			TTL:             cfg.TTL,
+			FactName:        cfg.FactName,
 		}
 		partitionEngine.engines[i+1] = NewSingleEngine(cfgE)
 	}

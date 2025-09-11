@@ -10,11 +10,12 @@ import (
 
 func TestBasicRule(t *testing.T) {
 	cfg := engine.Config{
-		Type:            0, // LRU
+		Type:            engine.LRU,
 		Size:            1000,
 		CleanupInterval: 10,
 		TTL:             60,
-		Partition:       4,
+		Partition:       1,
+		FactName:        "DiscountFact",
 	}
 	grule := engine.NewPartitionEngine(cfg, nil)
 

@@ -18,12 +18,12 @@ import (
 )
 
 const (
-	DiscountFact   = "DiscountFact"
 	LibraryName    = "library"
 	LibraryVersion = "0.0.1"
 )
 
 type singleEngine struct {
+	factName           string
 	cfg                Config
 	engine             *engine.GruleEngine
 	knowledgeLibraries map[string]*ast.KnowledgeLibrary
@@ -37,10 +37,11 @@ func NewSingleEngine(cfg Config) *singleEngine {
 		cfg:                cfg,
 		engine:             engine.NewGruleEngine(),
 		knowledgeLibraries: make(map[string]*ast.KnowledgeLibrary),
+		factName:           cfg.GetFactName(),
 	}
 
 	localCache := cache.New(cache.Config{
-		Type:            cfg.Type,
+		Type:            cfg.GetCacheType(),
 		Size:            cfg.Size,
 		CleanupInterval: time.Duration(cfg.CleanupInterval) * time.Second,
 		DefaultTTL:      time.Duration(cfg.TTL) * time.Second,
@@ -162,7 +163,7 @@ func (s *singleEngine) Execute(ctx context.Context, rule string, fact any) error
 	defer s.mu.RUnlock()
 
 	dataContext := ast.NewDataContext()
-	if err := dataContext.Add(DiscountFact, fact); err != nil {
+	if err := dataContext.Add(s.factName, fact); err != nil {
 		logger.WithContext(ctx).Errorf("[singleEngine][Execute] add fact %v has error : %v", fact, err)
 		return err
 	}
@@ -198,7 +199,7 @@ func (s *singleEngine) FetchMatching(ctx context.Context, rule string, fact any)
 	defer s.mu.RUnlock()
 
 	dataContext := ast.NewDataContext()
-	if err := dataContext.Add(DiscountFact, fact); err != nil {
+	if err := dataContext.Add(s.factName, fact); err != nil {
 		logger.WithContext(ctx).Errorf("[singleEngine][FetchMatching] add fact %v has error : %v", fact, err)
 		return nil, err
 	}

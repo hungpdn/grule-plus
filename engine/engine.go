@@ -3,6 +3,7 @@ package engine
 import (
 	"context"
 
+	"github.com/hungpdn/grule-plus/internal/cache"
 	"github.com/hyperjumptech/grule-rule-engine/ast"
 )
 
@@ -26,9 +27,44 @@ type IGruleEngine interface {
 
 // Config holds the configuration for the Grule engine.
 type Config struct {
-	Type            int // LRU, LFU, ARC, RANDOM
-	Size            int // size of the cache
-	CleanupInterval int // cleanup interval in seconds
-	TTL             int // time-to-live in seconds
-	Partition       int // number of partitions for the cache
+	Type            CacheType // type of cache: lru, lfu, arc, random
+	Size            int       // size of the cache, 0 means unlimited
+	CleanupInterval int       // cleanup interval in seconds, 0 means no cleanup
+	TTL             int       // time-to-live in seconds, 0 means no expiration
+	Partition       int       // number of partitions for the engine
+	FactName        string    // name of the fact to be used in rules, default is "Fact"
+}
+
+// CacheType represents the type of cache to be used.
+type CacheType string
+
+const (
+	LRU    CacheType = "lru"
+	LFU    CacheType = "lfu"
+	ARC    CacheType = "arc"
+	RANDOM CacheType = "random"
+)
+
+// GetCacheType returns the corresponding cache type constant.
+func (c Config) GetCacheType() int {
+	switch c.Type {
+	case LRU:
+		return cache.LRU
+	case LFU:
+		return cache.LFU
+	case ARC:
+		return cache.ARC
+	case RANDOM:
+		return cache.RANDOM
+	default:
+		return cache.LRU
+	}
+}
+
+// GetFactName returns the configured fact name or a default value if not set.
+func (c Config) GetFactName() string {
+	if c.FactName == "" {
+		return "Fact"
+	}
+	return c.FactName
 }

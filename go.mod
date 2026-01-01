@@ -1,6 +1,6 @@
 module github.com/hungpdn/grule-plus
 
-go 1.25.0
+go 1.24.4
 
 require (
 	github.com/hyperjumptech/grule-rule-engine v1.20.3

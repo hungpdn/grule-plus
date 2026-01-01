@@ -1,5 +1,11 @@
 # grule-plus
 
+[![Go Version](https://img.shields.io/badge/go-%3E%3D1.21-blue.svg)](https://golang.org/)
+[![CI](https://github.com/hungpdn/grule-plus/workflows/CI/badge.svg)](https://github.com/hungpdn/grule-plus/actions)
+[![codecov](https://codecov.io/gh/hungpdn/grule-plus/branch/main/graph/badge.svg)](https://codecov.io/gh/hungpdn/grule-plus)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hungpdn/grule-plus)](https://goreportcard.com/report/github.com/hungpdn/grule-plus)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **grule-plus** is a high-performance, extensible rule engine built on top of [Grule Rule Engine](https://github.com/hyperjumptech/grule-rule-engine). It provides advanced caching, partitioning, and flexible configuration for scalable rule evaluation in Go applications.
 
 ---
@@ -83,3 +89,13 @@ See `engine.Config` for all available options:
 - **internal/consistenthash**.
 - **benchmark**.
 - **protobuf**.
+
+---
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -15,7 +15,7 @@ lint:
 	golangci-lint run
 
 benchmark:
-    go test -bench=. -benchmem ./benchmark/...
+	go test -bench=. -benchmem ./benchmark/...
 
 clean:
 	rm -rf coverage.out

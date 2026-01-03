@@ -85,7 +85,7 @@ See `engine.Config` for all available options:
 
 ## TODO
 
-- **internal/cache:** arc, 2q.
+- **internal/cache:** 2q.
 - **internal/consistenthash**.
 - **benchmark**.
 - **protobuf**.

@@ -109,7 +109,7 @@ func TestEvictedFuncAndSetEvictedFunc(t *testing.T) {
 	var evictedValue any
 	var evictedEvent int
 
-	cache.SetEvictedFunc(func(key, value any, event int) {
+	_ = cache.SetEvictedFunc(func(key, value any, event int) {
 		evictedKey = key
 		evictedValue = value
 		evictedEvent = event

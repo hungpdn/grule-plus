@@ -7,6 +7,7 @@ import (
 	"github.com/hungpdn/grule-plus/internal/cache/common"
 	"github.com/hungpdn/grule-plus/internal/cache/lfu"
 	"github.com/hungpdn/grule-plus/internal/cache/lru"
+	"github.com/hungpdn/grule-plus/internal/cache/twoq"
 )
 
 // CacheType defines the type of cache to be used.
@@ -14,6 +15,7 @@ const (
 	LRU = iota
 	LFU
 	ARC
+	TWOQ
 	RANDOM
 )
 
@@ -69,6 +71,15 @@ func New(config Config) ICache {
 		return cache
 	case ARC:
 		cache := arc.New(config.Size, config.CleanupInterval)
+		if config.EvictedFunc != nil {
+			_ = cache.SetEvictedFunc(config.EvictedFunc)
+		}
+		if config.DefaultTTL > 0 {
+			cache.SetDefaultTTL(config.DefaultTTL)
+		}
+		return cache
+	case TWOQ:
+		cache := twoq.New(config.Size, config.CleanupInterval)
 		if config.EvictedFunc != nil {
 			_ = cache.SetEvictedFunc(config.EvictedFunc)
 		}

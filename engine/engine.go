@@ -42,6 +42,7 @@ const (
 	LRU    CacheType = "lru"
 	LFU    CacheType = "lfu"
 	ARC    CacheType = "arc"
+	TWOQ   CacheType = "twoq"
 	RANDOM CacheType = "random"
 )
 
@@ -54,6 +55,8 @@ func (c Config) GetCacheType() int {
 		return cache.LFU
 	case ARC:
 		return cache.ARC
+	case TWOQ:
+		return cache.TWOQ
 	case RANDOM:
 		return cache.RANDOM
 	default:

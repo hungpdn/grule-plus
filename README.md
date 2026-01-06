@@ -14,6 +14,7 @@
 
 - **Pluggable Cache Engines:** Supports LRU (Least Recently Used), LFU (Least Frequently Used), ARC (Adaptive Replacement Cache), and RANDOM cache strategies.
 - **Partitioned Rule Engine:** Scale horizontally with partitioned engines for concurrent rule evaluation.
+- **Consistent Hashing:** Efficient key distribution across partitions with minimal remapping on node changes.
 - **Flexible TTL & Cleanup:** Per-rule time-to-live and periodic cleanup for cache entries.
 - **Structured Logging:** Integrated with Go's `slog` for context-aware, structured logs.
 - **Runtime Stats:** Built-in runtime statistics for monitoring and debugging.
@@ -85,7 +86,6 @@ See `engine.Config` for all available options:
 
 ## TODO
 
-- **internal/consistenthash**.
 - **benchmark**.
 - **protobuf**.
 

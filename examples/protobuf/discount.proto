@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package discount;
+option go_package = "github.com/hungpdn/grule-plus/examples/protobuf/discountpb";
+
+message DiscountFact {
+  int32 amount = 1;
+  int32 discount = 2;
+  string customer_type = 3;
+  repeated string tags = 4;
+}
+
+message OrderFact {
+  string order_id = 1;
+  double total_amount = 2;
+  string customer_id = 3;
+  repeated Item items = 4;
+  DiscountFact discount = 5;
+}
+
+message Item {
+  string product_id = 1;
+  string name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  string category = 5;
+}

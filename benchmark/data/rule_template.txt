@@ -1,0 +1,3 @@
+package DiscountFact
+Amount: {{.Amount}}
+Discount: {{.Discount}}

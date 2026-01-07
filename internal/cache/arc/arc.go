@@ -92,11 +92,19 @@ func (c *Cache) Set(key any, value any, duration time.Duration) {
 
 	if inB1 {
 		// Hit in B1, increase p
-		c.p = min(c.p+max(1, c.b2.Len()/c.b1.Len()), c.maxEntries)
+		if c.b1.Len() > 0 {
+			c.p = min(c.p+max(1, c.b2.Len()/c.b1.Len()), c.maxEntries)
+		} else {
+			c.p = min(c.p+1, c.maxEntries)
+		}
 		c.replace(key) // This might be redundant, but follows ARC
 	} else if inB2 {
 		// Hit in B2, decrease p
-		c.p = max(c.p-max(1, c.b1.Len()/c.b2.Len()), 0)
+		if c.b2.Len() > 0 {
+			c.p = max(c.p-max(1, c.b1.Len()/c.b2.Len()), 0)
+		} else {
+			c.p = max(c.p-1, 0)
+		}
 		c.replace(key)
 	}
 
@@ -136,9 +144,17 @@ func (c *Cache) Get(key any) (value any, ok bool) {
 	inB2 := c.checkGhost(c.b2, key)
 
 	if inB1 {
-		c.p = min(c.p+max(1, c.b2.Len()/c.b1.Len()), c.maxEntries)
+		if c.b1.Len() > 0 {
+			c.p = min(c.p+max(1, c.b2.Len()/c.b1.Len()), c.maxEntries)
+		} else {
+			c.p = min(c.p+1, c.maxEntries)
+		}
 	} else if inB2 {
-		c.p = max(c.p-max(1, c.b1.Len()/c.b2.Len()), 0)
+		if c.b2.Len() > 0 {
+			c.p = max(c.p-max(1, c.b1.Len()/c.b2.Len()), 0)
+		} else {
+			c.p = max(c.p-1, 0)
+		}
 	}
 
 	return nil, false

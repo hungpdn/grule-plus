@@ -1,0 +1,31 @@
+rule DiscountRule1 "Apply 5% discount" salience 10 {
+    when
+        DiscountFact.Amount > 50 && DiscountFact.Amount <= 100
+    then
+        DiscountFact.Discount = 5;
+        Retract("DiscountRule1");
+}
+
+rule DiscountRule2 "Apply 10% discount" salience 20 {
+    when
+        DiscountFact.Amount > 100 && DiscountFact.Amount <= 200
+    then
+        DiscountFact.Discount = 10;
+        Retract("DiscountRule2");
+}
+
+rule DiscountRule3 "Apply 15% discount" salience 30 {
+    when
+        DiscountFact.Amount > 200 && DiscountFact.Amount <= 500
+    then
+        DiscountFact.Discount = 15;
+        Retract("DiscountRule3");
+}
+
+rule DiscountRule4 "Apply 20% discount" salience 40 {
+    when
+        DiscountFact.Amount > 500
+    then
+        DiscountFact.Discount = 20;
+        Retract("DiscountRule4");
+}

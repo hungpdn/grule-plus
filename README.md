@@ -22,6 +22,12 @@
 
 ---
 
+## Benchmarks
+
+Comprehensive benchmarks are available in the `benchmark/` directory, testing cache performance, engine throughput, and memory usage across different configurations. See [benchmark/README.md](benchmark/README.md) for detailed results and usage instructions.
+
+---
+
 ## Getting Started
 
 ### Installation
@@ -86,7 +92,6 @@ See `engine.Config` for all available options:
 
 ## TODO
 
-- **benchmark**.
 - **protobuf**.
 
 ---

@@ -7,6 +7,7 @@ import (
 	"github.com/hungpdn/grule-plus/internal/cache/common"
 	"github.com/hungpdn/grule-plus/internal/cache/lfu"
 	"github.com/hungpdn/grule-plus/internal/cache/lru"
+	"github.com/hungpdn/grule-plus/internal/cache/random"
 	"github.com/hungpdn/grule-plus/internal/cache/twoq"
 )
 
@@ -37,6 +38,8 @@ type ICache interface {
 	Close()
 	// SetEvictedFunc updates the eviction func
 	SetEvictedFunc(f common.EvictedFunc) error
+	// SetDefaultTTL sets the default TTL for cache entries
+	SetDefaultTTL(ttl time.Duration)
 }
 
 // Config holds the configuration for the cache.
@@ -50,44 +53,25 @@ type Config struct {
 
 // New creates a new cache instance based on the provided configuration.
 func New(config Config) ICache {
-	switch config.Type {
-	case LRU:
-		cache := lru.New(config.Size, config.CleanupInterval)
-		if config.EvictedFunc != nil {
-			_ = cache.SetEvictedFunc(config.EvictedFunc)
-		}
-		if config.DefaultTTL > 0 {
-			cache.SetDefaultTTL(config.DefaultTTL)
-		}
-		return cache
-	case LFU:
-		cache := lfu.New(config.Size, config.CleanupInterval)
-		if config.EvictedFunc != nil {
-			_ = cache.SetEvictedFunc(config.EvictedFunc)
-		}
-		if config.DefaultTTL > 0 {
-			cache.SetDefaultTTL(config.DefaultTTL)
-		}
-		return cache
-	case ARC:
-		cache := arc.New(config.Size, config.CleanupInterval)
-		if config.EvictedFunc != nil {
-			_ = cache.SetEvictedFunc(config.EvictedFunc)
-		}
-		if config.DefaultTTL > 0 {
-			cache.SetDefaultTTL(config.DefaultTTL)
-		}
-		return cache
-	case TWOQ:
-		cache := twoq.New(config.Size, config.CleanupInterval)
-		if config.EvictedFunc != nil {
-			_ = cache.SetEvictedFunc(config.EvictedFunc)
-		}
-		if config.DefaultTTL > 0 {
-			cache.SetDefaultTTL(config.DefaultTTL)
-		}
-		return cache
-	default:
+	factories := map[int]func() ICache{
+		LRU:    func() ICache { return lru.New(config.Size, config.CleanupInterval) },
+		LFU:    func() ICache { return lfu.New(config.Size, config.CleanupInterval) },
+		ARC:    func() ICache { return arc.New(config.Size, config.CleanupInterval) },
+		TWOQ:   func() ICache { return twoq.New(config.Size, config.CleanupInterval) },
+		RANDOM: func() ICache { return random.New(config.Size, config.CleanupInterval) },
+	}
+
+	factory, ok := factories[config.Type]
+	if !ok {
 		panic("unknown type")
 	}
+
+	cache := factory()
+	if config.EvictedFunc != nil {
+		_ = cache.SetEvictedFunc(config.EvictedFunc)
+	}
+	if config.DefaultTTL > 0 {
+		cache.SetDefaultTTL(config.DefaultTTL)
+	}
+	return cache
 }

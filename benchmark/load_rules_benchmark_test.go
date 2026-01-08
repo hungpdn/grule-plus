@@ -26,6 +26,7 @@ func BenchmarkCacheTypes(b *testing.B) {
 		{"LFU", cache.LFU},
 		{"ARC", cache.ARC},
 		{"TWOQ", cache.TWOQ},
+		{"RANDOM", cache.RANDOM},
 	}
 
 	sizes := []int{100, 1000, 10000}
@@ -98,6 +99,7 @@ func BenchmarkEngineCacheTypes(b *testing.B) {
 		engine.LFU,
 		engine.ARC,
 		engine.TWOQ,
+		engine.RANDOM,
 	}
 
 	for _, cacheType := range cacheTypes {

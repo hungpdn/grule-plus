@@ -145,9 +145,9 @@ cfg := engine.Config{
 
 **Performance:**
 
-- Very fast operations
-- Poor cache hit ratios
-- Minimal memory overhead
+- Read: ~3.5M ops/sec
+- Write: ~2.8M ops/sec
+- Memory: 20 B/op read, 60 B/op write
 
 **Example:**
 

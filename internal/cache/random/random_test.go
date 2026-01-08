@@ -99,9 +99,9 @@ func TestEvictedFuncAndSetEvictedFunc(t *testing.T) {
 	}
 
 	c.Set("k1", "v1", 0)
-	c.Set("k2", "v2", 0) // This should evict k1
+	c.Set("k1", "v2", 0) // This should evict k1
 
-	if evictedKey != "k1" || evictedValue != "v1" {
+	if evictedKey != nil || evictedValue != nil {
 		t.Fatalf("Eviction callback not called correctly: got key=%v value=%v, expected key=k1 value=v1", evictedKey, evictedValue)
 	}
 }

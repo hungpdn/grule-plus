@@ -90,9 +90,35 @@ See `engine.Config` for all available options:
 
 ---
 
-## TODO
+## Documentation
 
-- **protobuf**.
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[API Reference](docs/api.md)** - Complete API documentation
+- **[Architecture](docs/architecture.md)** - System design and components
+- **[Cache Types](docs/cache-types.md)** - Cache algorithm explanations
+- **[Configuration](docs/configuration.md)** - Setup and tuning guide
+- **[Benchmarks](docs/benchmarks.md)** - Performance testing and results
+- **[Examples](docs/examples.md)** - Usage patterns and code samples
+
+### Building Documentation
+
+```bash
+# Install MkDocs (optional)
+pip install mkdocs mkdocs-material
+
+# Serve docs locally
+cd docs && mkdocs serve
+
+# Or use godoc for API docs
+godoc -http=:6060
+```
+
+---
+
+## Security
+
+Please report security vulnerabilities by emailing **<todo@gmail.com>** (not through public issues). See [SECURITY.md](SECURITY.md) for details.
 
 ---
 

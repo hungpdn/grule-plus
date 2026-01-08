@@ -1,0 +1,53 @@
+site_name: Grule-Plus Documentation
+site_description: High-performance, extensible rule engine for Go
+site_author: hungpdn
+site_url: https://github.com/hungpdn/grule-plus
+
+repo_name: grule-plus
+repo_url: https://github.com/hungpdn/grule-plus
+
+nav:
+  - Home: index.md
+  - API Reference: api.md
+  - Architecture: architecture.md
+  - Cache Types: cache-types.md
+  - Configuration: configuration.md
+  - Benchmarks: benchmarks.md
+  - Examples: examples.md
+
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+markdown_extensions:
+  - codehilite
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: go
+      handlers:
+        go:
+          import:
+            - github.com/hungpdn/grule-plus
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/hungpdn/grule-plus
+    - icon: fontawesome/brands/go
+      link: https://golang.org
+
+copyright: Copyright &copy; 2026 hungpdn. All rights reserved.

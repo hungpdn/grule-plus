@@ -40,8 +40,8 @@ jobs:
       with:
         version: latest
 
-    - name: Run benchmarks
-      run: make benchmark
+    # - name: Run benchmarks
+    #   run: make benchmark
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3

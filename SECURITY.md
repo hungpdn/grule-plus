@@ -15,8 +15,7 @@ We take the security of grule-plus seriously. If you believe you have found a se
 
 ### Please DO NOT report security vulnerabilities through public GitHub issues
 
-Instead, please report security vulnerabilities by emailing:
-**<todo@gmail.com>**
+Instead, please report security vulnerabilities by LinkedIn: [**hungpdn**](https://www.linkedin.com/in/hungpdn/)
 
 You should receive a response within 24 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
 
@@ -55,4 +54,4 @@ Security updates will be released as soon as possible, typically within a few da
 
 ### Questions
 
-If you have questions about this security policy, please email **<todo@gmail.com>**.
+If you have questions about this security policy, please LinkedIn [**hungpdn**](https://www.linkedin.com/in/hungpdn/)

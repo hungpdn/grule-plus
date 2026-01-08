@@ -82,7 +82,7 @@ func main() {
 
 See `engine.Config` for all available options:
 
-- `Type`: Cache type (LRU, LFU, ARC, RANDOM)
+- `Type`: Cache type (LRU, LFU, ARC, TWOQ, RANDOM)
 - `Size`: Maximum cache size
 - `CleanupInterval`: Cache cleanup interval (seconds)
 - `TTL`: Default time-to-live for rules (seconds)
@@ -118,7 +118,13 @@ godoc -http=:6060
 
 ## Security
 
-Please report security vulnerabilities by emailing **<todo@gmail.com>** (not through public issues). See [SECURITY.md](SECURITY.md) for details.
+Please report security vulnerabilities by LinkedIn [**hungpdn**](https://www.linkedin.com/in/hungpdn/) (not through public issues). See [SECURITY.md](SECURITY.md) for details.
+
+---
+
+## TODO
+
+- Metrics & Monitoring System (execution time, success/failure rates, cache hit/miss ratios, ...)
 
 ---
 
